@@ -5,6 +5,6 @@ name = "pypi"
 
 [packages]
 python-telegram-bot = {extras = ["job-queue"], version = "*"}
-python-telegram-framework = "*"
+# python-telegram-framework = "*"
 
 [dev-packages]

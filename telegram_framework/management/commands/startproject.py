@@ -3,6 +3,7 @@
 import os
 import sys
 import shutil
+import subprocess
 
 from packaging.version import parse as parse_version
 
@@ -38,7 +39,18 @@ def startproject(project_name, python_version = None):
     copy_template(TEMPLATE_DIR, destination)
     if python_version:
         modify_pipfile(destination, python_version)
-    print(f"Project '{project_name}' created successfully at {destination}")
+        
+    print(f"Project '{project_name}' created successfully at {destination}\n")
+    
+    # Ask user if want to run "pipenv install" command 
+    install_dependencies = input("Would you like to create a virtual environment and install project dependencies now? (y/n): ").strip().lower()
+    if install_dependencies == 'y':
+        try:
+            subprocess.check_call(['pipenv', 'install'], cwd=destination)
+            print("Dependencies installed successfully.")
+        except subprocess.CalledProcessError as e:
+            print("Error installing dependecies:", e)
+            sys.exit(1)
 
 def main():
     if len(sys.argv) < 3 or sys.argv[1] != 'startproject':
