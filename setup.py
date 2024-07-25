@@ -5,7 +5,7 @@ setup(
     version="0.1",
     packages=find_packages(),
     install_requires=[
-        "python-telegram-bot",
+        "pipenv",
         "packaging"
     ],
     entry_points={
@@ -15,7 +15,7 @@ setup(
     },
     author="Víctor Martínez Amador",
     author_email="vmartineza33@gmail.com",
-    description="Un framework pequeño para crear bots de Telegram",
+    description="Small framework to create bots with python-telegram-bot",
     long_description=open('README.md').read(),
     long_description_content_type='text/markdown',
     url="https://github.com/vmartinez33/python-telegram-framework",
