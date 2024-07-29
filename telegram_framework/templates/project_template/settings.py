@@ -1,4 +1,6 @@
-# telegram_framework/templates/project_template/settings.py
+import logging
 
 # Configuraciones básicas del proyecto
-TOKEN = 'YOUR_BOT_TOKEN'
+TELEGRAM_BOT_TOKEN = 'YOUR_BOT_TOKEN'
+
+LOGGING_LEVEL = logging.DEBUG
