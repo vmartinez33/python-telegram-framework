@@ -10,7 +10,7 @@ setup(
     ],
     entry_points={
         'console_scripts': [
-            'python-telegram-framework=telegram_framework.management.commands.startproject:main',
+            'python-telegram-framework=telegram_framework.management:execute_from_command_line',
         ],
     },
     author="Víctor Martínez Amador",
