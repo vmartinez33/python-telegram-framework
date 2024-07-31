@@ -9,8 +9,7 @@ def main():
     # os.environ.setdefault('TELEGRAM_SETTINGS_MODULE', 'settings')
     
     try:
-        from telegram_framework.core.managment import execute_from_command_line
-        pass
+        from telegram_framework.management import execute_from_command_line
     except ImportError as exc:
         raise ImportError(
             "Couldn't import Telegram Framework. Did you "
