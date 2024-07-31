@@ -4,10 +4,11 @@ import subprocess
 
 from telegram_framework.management.utils import is_valid_python_version, copy_template
 
+#TODO: refactor para que el comando sea una clase Command que hereda de BaseCommand
 
 TEMPLATE_DIR = os.path.join(os.path.dirname(__file__), '..', '..', 'templates', 'project_template')
 
-def modify_pipfile(destination, python_version):    
+def modify_pipfile(destination, python_version):
     pipfile_path = os.path.join(destination, 'Pipfile')
     if os.path.exists(pipfile_path) and python_version:
         with open(pipfile_path, 'a') as file:
