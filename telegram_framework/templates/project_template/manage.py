@@ -5,16 +5,18 @@ import sys
 
 def main():
     """Run administrative tasks."""
+    #TODO: ver cómo manejar los settigns, y dependiendo de eso esto tendrá o no sentido
     # os.environ.setdefault('TELEGRAM_SETTINGS_MODULE', 'settings')
+    
     try:
-        # from django.core.management import execute_from_command_line
+        from telegram_framework.core.managment import execute_from_command_line
         pass
     except ImportError as exc:
         raise ImportError(
             "Couldn't import Telegram Framework. Did you "
             "forget to activate a virtual environment and install all dependencies?"
         ) from exc
-    # execute_from_command_line(sys.argv)
+    execute_from_command_line(sys.argv)
 
 
 if __name__ == '__main__':
