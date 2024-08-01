@@ -6,7 +6,6 @@ from telegram_framework.utils import is_valid_python_version
 from telegram_framework.management.base import CommandError
 from telegram_framework.management.templates import TemplateCommand
 
-#TODO: refactor para que el comando sea una clase Command que hereda de BaseCommand
 
 class Command(TemplateCommand):
     help = ""
@@ -15,7 +14,6 @@ class Command(TemplateCommand):
     def __init__(self):
         super().__init__()
         
-    #TODO: definir método add_arguments() con el argumento '--python-version' y que llame a super().add_arguments()
     def add_arguments(self, parser):
         super().add_arguments(parser)
         parser.add_argument('-v', '--python-version', type=str, help='Python version to use in the project (must be >= 3.8).')

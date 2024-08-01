@@ -5,7 +5,7 @@ import sys
 
 def main():
     """Run administrative tasks."""
-    #TODO: ver cómo manejar los settigns, y dependiendo de eso esto tendrá o no sentido
+    #TODO: ver cómo manejar los settigns, y dependiendo de eso, esto tendrá o no sentido
     # os.environ.setdefault('TELEGRAM_SETTINGS_MODULE', 'settings')
     
     try:

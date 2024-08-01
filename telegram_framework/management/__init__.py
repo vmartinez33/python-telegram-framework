@@ -14,8 +14,8 @@ def execute_from_command_line(argv=None):
     command_name = argv[1]
     try:
         module = importlib.import_module(f'commands.{command_name}')
-        command_instance = module.Command()
-        command_instance.execute(*argv[2:])
+        command = module.Command()
+        command.execute(*argv[2:])
     except ModuleNotFoundError:
         print(f"Command '{command_name}' could not be found.")
     except AttributeError:

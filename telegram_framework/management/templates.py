@@ -18,7 +18,6 @@ class TemplateCommand(BaseCommand, ABC):
     def __init__(self):
         super().__init__()
         
-    #TODO: definir método add_arguments() con el argumento 'name'
     def add_arguments(self, parser):
         parser.add_argument('name', type=str, help='Name of the project or module')
         
