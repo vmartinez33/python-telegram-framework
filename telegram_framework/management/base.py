@@ -26,7 +26,7 @@ class BaseCommand(ABC):
         pass
     
     @abstractmethod
-    def handle(self, *args, **kwargs):
+    def handle(self, **options):
         pass
     
     def print_help(self):
