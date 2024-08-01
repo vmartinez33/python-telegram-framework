@@ -20,6 +20,7 @@ class TemplateCommand(BaseCommand, ABC):
 
     def add_arguments(self, parser):
         parser.add_argument('name', type=str, help='Name of the project or module')
+        #TODO: extra argument opcional para indicar la ruta concreta donde se quiere crear la template (--directory/-d)
         
     def copy_template(self, destination):
         if not os.path.exists(self.template_directory):
