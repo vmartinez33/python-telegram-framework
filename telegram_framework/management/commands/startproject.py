@@ -11,7 +11,7 @@ class Command(TemplateCommand):
     help = "Command to create new projects"
     template_name = "project_template"
     
-    def __init__(self, argv):
+    def __init__(self, argv=None):
         super().__init__(argv)
         
     def add_arguments(self, parser):

@@ -15,7 +15,7 @@ class TemplateCommand(BaseCommand, ABC):
     def template_directory(self):
         return os.path.join(telegram_framework.__path__[0], 'templates', self.template_name)
     
-    def __init__(self, argv):
+    def __init__(self, argv=None):
         super().__init__(argv)
 
     def add_arguments(self, parser):
