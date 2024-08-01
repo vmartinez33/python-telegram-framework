@@ -46,6 +46,7 @@ class Command(TemplateCommand):
         self.copy_template(destination)
         
         if python_version:
+            #TODO: preguntar si quieren un nuevo entorno virtual con pipenv, y solo si dicen que sí, añadir el Pipfile
             self.modify_pipfile(destination, python_version)
         
         print(f"Project '{name}' created successfully at {destination}\n")
