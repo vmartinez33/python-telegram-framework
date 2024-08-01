@@ -1,3 +1,5 @@
+import os
+import sys
 import argparse
 from abc import ABC, abstractmethod
 
@@ -17,8 +19,20 @@ class BaseCommand(ABC):
     def help(self):
         pass
     
-    def __init__(self):
-        self.parser = argparse.ArgumentParser(description=self.help)
+    def __init__(self, argv=None):
+        self.argv = argv or sys.argv
+        
+        script_name = os.path.basename(sys.argv[0])
+        if script_name == "__main__.py":
+            script_name = "python -m telegram_framework"
+        command_name = sys.argv[1]
+        prog = f'{script_name} {command_name}'
+        
+        self.parser = argparse.ArgumentParser(
+            description=self.help,
+            prog=prog,
+            # usage=f'%(prog)s [options]'
+        )
         self.add_arguments(self.parser)
         
     @abstractmethod
@@ -32,12 +46,12 @@ class BaseCommand(ABC):
     def print_help(self):
         self.parser.print_help()    
 
-    def execute(self, *args, **kwargs):
+    def execute(self):
         try:
-            options = self.parser.parse_args(args)
+            options = self.parser.parse_args(self.argv[2:])
             self.handle(**vars(options))
         except CommandError as e:
-            print(f"Error: {e}")
+            print(e)
             self.print_help()
         except Exception as e:
             print(f"An unexpected error occurred: {e}")

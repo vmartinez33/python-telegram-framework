@@ -8,11 +8,11 @@ from telegram_framework.management.templates import TemplateCommand
 
 
 class Command(TemplateCommand):
-    help = ""
+    help = "Command to create new projects"
     template_name = "project_template"
     
-    def __init__(self):
-        super().__init__()
+    def __init__(self, argv):
+        super().__init__(argv)
         
     def add_arguments(self, parser):
         super().add_arguments(parser)
