@@ -2,25 +2,33 @@ import os
 import shutil
 from abc import ABC, abstractmethod
 
+import telegram_framework
 from .base import BaseCommand, CommandError
 
 class TemplateCommand(BaseCommand, ABC):
     @property
     @abstractmethod
-    def template_directory(self):
+    def template_name(self):
         pass
+    
+    @property
+    def template_directory(self):
+        return os.path.join(telegram_framework.__path__[0], 'templates', self.template_name)
     
     def __init__(self):
         super().__init__()
         
-    def copy_template(template_dir, destination):
+    def copy_template(self, destination):
+        if not os.path.exists(self.template_directory):
+            raise CommandError("The template being attempted to copy does not exist.")
+        
         if os.path.exists(destination):
             raise CommandError(f"The destination directory '{destination}' already exists.")
             
         os.makedirs(destination)
         
-        for item in os.listdir(template_dir):
-            src = os.path.join(template_dir, item)
+        for item in os.listdir(self.template_directory):
+            src = os.path.join(self.template_directory, item)
             dst = os.path.join(destination, item)
             if os.path.isdir(src):
                 shutil.copytree(src, dst)
