@@ -13,7 +13,7 @@ def main():
     except ImportError as exc:
         raise ImportError(
             "Couldn't import Telegram Framework. Did you "
-            "forget to activate a virtual environment and install all dependencies?"
+            "forget to activate a virtual environment or install all dependencies?"
         ) from exc
     execute_from_command_line(sys.argv)
 
