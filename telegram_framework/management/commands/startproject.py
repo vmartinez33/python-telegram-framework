@@ -2,7 +2,6 @@ import os
 import sys
 import subprocess
 
-import telegram_framework
 from telegram_framework.utils import is_valid_python_version
 from telegram_framework.management.base import CommandError
 from telegram_framework.management.templates import TemplateCommand
@@ -15,6 +14,11 @@ class Command(TemplateCommand):
     
     def __init__(self):
         super().__init__()
+        
+    #TODO: definir método add_arguments() con el argumento '--python-version' y que llame a super().add_arguments()
+    def add_arguments(self, parser):
+        super().add_arguments(parser)
+        parser.add_argument('-v', '--python-version', type=str, help='Python version to use in the project (must be >= 3.8).')
     
     def modify_pipfile(self, destination, python_version):
         pipfile_path = os.path.join(destination, 'Pipfile')
