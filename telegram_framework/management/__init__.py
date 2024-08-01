@@ -13,7 +13,7 @@ def execute_from_command_line(argv=None):
 
     command_name = argv[1]
     try:
-        module = importlib.import_module(f'commands.{command_name}')
+        module = importlib.import_module(f'telegram_framework.management.commands.{command_name}')
         command = module.Command()
         command.execute(*argv[2:])
     except ModuleNotFoundError:
