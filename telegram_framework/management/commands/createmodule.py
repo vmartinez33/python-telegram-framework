@@ -15,8 +15,7 @@ class Command(TemplateCommand):
         
     def handle(self, **options):
         name = options.get('name')
-        #TODO: cambiar 'destination' para que el modulo se cree dentro de la carpeta 'app' del proyecto actual (necesario obtener path del proyecto actual)
-        #TODO (EXTRA): definir en settings.py la ruta relativa por defecto donde crear los modulos (dentro del proyecto por supuesto)
-        destination = os.path.join(os.getcwd(), name)
+        #TODO (EXTRA): definir en settings.py la ruta relativa por defecto donde crear los modulos dentro del proyecto (por ahora será dentro de /app)
+        destination = os.path.join(os.getcwd(), 'app', name)
         self.copy_template(destination)
         print(f"Module '{name}' created successfully at {destination}\n")
