@@ -5,7 +5,6 @@ from telegram_framework.management.base import CommandError
 
 def execute_from_command_line(argv=None):
     argv = argv or sys.argv
-    print(argv)
 
     if len(argv) < 2:
         print("Please provide a command.")
