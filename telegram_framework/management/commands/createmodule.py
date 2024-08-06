@@ -30,9 +30,7 @@ class Command(TemplateCommand):
                 with open(app_handlers_path, 'w') as f:
                     for line in content:
                         f.write(line)
-                        print(line)
                         if line.strip().startswith("handlers = ["):
-                            print("Te pillé!")
                             f.write(f"\t{module_import}")
                 
                 print(f"Handlers of module '{module_name}' included in app handlers successfully.")
