@@ -1,11 +1,19 @@
 from importlib import import_module
 
-def include(arg):
-    """ Function that includes the handlers of one file in another.
-    It is assumed that 'arg' indicates the exact path from the project root. Ex. 'app.module_1.handlers'.
-    It returns a list of handlers for the given file (arg), so splat operator needs to be used: '*include()'.
+def include(arg, abspath=False):
+    """Includes handlers defined in another module.
+    
+    Args:
+        arg (str): Path to the handlers module. It can be relative to the directory configured for the modules in settings.py, or absolute from the root of the project.
+        abspath (bool): If True, `arg` is considered an absolute path from the project root.
+
+    Returns:
+        list: List of handlers included from the specified module
     """
     try:
+        if not abspath:
+            #TODO (EXTRA): definir en settings.py la ruta relativa por defecto donde buscar los modulos (por ahora será dentro de /app)
+            arg = 'app.'+arg
         handler_module = import_module(arg)
         handlers = getattr(handler_module, 'handlers')
     except ModuleNotFoundError:
