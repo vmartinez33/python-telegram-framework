@@ -18,6 +18,7 @@ class Command(TemplateCommand):
         if include_handlers == "y":
             app_handlers_path = os.path.join('app', 'handlers.py')
             module_import = f"*include('{module_name}.handlers'),\n"
+            include_import = "from telegram_framework.handlers import include\n"
             
             try:
                 with open(app_handlers_path, 'r') as f:
@@ -28,10 +29,18 @@ class Command(TemplateCommand):
             
             try: 
                 with open(app_handlers_path, 'w') as f:
+                    count = 0
                     for line in content:
+                        # Import the 'include' function at the beginning of the file, if it has not already been imported
+                        if count == 0: #TODO: mirar si ya está improtada la libreria
+                            f.write(include_import)
+                        # Write next line in file
                         f.write(line)
-                        if line.strip().startswith("handlers = ["):
+                        # Add inc
+                        if line.strip().startswith("handlers = ["): #TODO: mirar si ya está importado el handlers del modulo
                             f.write(f"\t{module_import}")
+                            
+                        count += 1
                 
                 print(f"Handlers of module '{module_name}' included in app handlers successfully.")
                 reverse = input("\nDo you want to reverse the action? (y/n):").strip().lower()
