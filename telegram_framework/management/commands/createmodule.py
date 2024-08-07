@@ -17,8 +17,8 @@ class Command(TemplateCommand):
         include_handlers = input("Do you want to include the handlers of this new module in the app handlers? (y/n):").strip().lower()
         if include_handlers == "y":
             app_handlers_path = os.path.join('app', 'handlers.py')
-            module_import = f"*include('{module_name}.handlers'),\n"
-            include_import = "from telegram_framework.handlers import include\n"
+            module_import = f"*include('{module_name}.handlers')"
+            include_import = "from telegram_framework.handlers import include"
             
             try:
                 with open(app_handlers_path, 'r') as f:
@@ -33,12 +33,12 @@ class Command(TemplateCommand):
                     for line in content:
                         # Import the 'include' function at the beginning of the file, if it has not already been imported
                         if count == 0: #TODO: mirar si ya está improtada la libreria
-                            f.write(include_import)
+                            f.write(f"{include_import}\n")
                         # Write next line in file
                         f.write(line)
-                        # Add inc
+                        # Add 'include' function at the begining of the handlers list
                         if line.strip().startswith("handlers = ["): #TODO: mirar si ya está importado el handlers del modulo
-                            f.write(f"\t{module_import}")
+                            f.write(f"\t{module_import},\n")
                             
                         count += 1
                 
