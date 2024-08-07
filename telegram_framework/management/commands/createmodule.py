@@ -26,18 +26,21 @@ class Command(TemplateCommand):
             except FileNotFoundError:
                 print(f"The file '{app_handlers_path}' does not exist.")
                 sys.exit(1)
+
+            include_import_exists = any(include_import in line for line in content)
+            module_import_exists = any(module_import in line for line in content)
             
-            try: 
+            try:
                 with open(app_handlers_path, 'w') as f:
                     count = 0
                     for line in content:
                         # Import the 'include' function at the beginning of the file, if it has not already been imported
-                        if count == 0: #TODO: mirar si ya está improtada la libreria
+                        if count == 0 and not include_import_exists: #TODO: mirar si ya está improtada la libreria
                             f.write(f"{include_import}\n")
                         # Write next line in file
                         f.write(line)
                         # Add 'include' function at the begining of the handlers list
-                        if line.strip().startswith("handlers = ["): #TODO: mirar si ya está importado el handlers del modulo
+                        if not module_import_exists and line.strip().startswith("handlers = ["): #TODO: mirar si ya está importado el handlers del modulo
                             f.write(f"\t{module_import},\n")
                             
                         count += 1
