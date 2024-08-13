@@ -35,12 +35,12 @@ class Command(TemplateCommand):
                     count = 0
                     for line in content:
                         # Import the 'include' function at the beginning of the file, if it has not already been imported
-                        if count == 0 and not include_import_exists: #TODO: mirar si ya está improtada la libreria
+                        if count == 0 and not include_import_exists:
                             f.write(f"{include_import}\n")
                         # Write next line in file
                         f.write(line)
                         # Add 'include' function at the begining of the handlers list
-                        if not module_import_exists and line.strip().startswith("handlers = ["): #TODO: mirar si ya está importado el handlers del modulo
+                        if not module_import_exists and line.strip().startswith("handlers = ["):
                             f.write(f"\t{module_import},\n")
                             
                         count += 1
