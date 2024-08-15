@@ -1,4 +1,8 @@
-import logging
+"""
+Settings for this telegram framework project.
+
+For the full list of settings and their values, see:
+"""
 
 # Project configuration
 DEBUG = True
