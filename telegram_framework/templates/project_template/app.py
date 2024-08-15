@@ -3,9 +3,13 @@ import logging
 
 from telegram.ext import Application
 
+from telegram_framework.conf.utils import initialize_settings
 from telegram_framework.conf import settings
 
 from app.handlers import handlers
+
+#TODO: Por algun motivo es necesario para ejecutar el app.py, ver porqué ocurre y si se puede evitar (se debe poder, a Django no le pasa)
+initialize_settings(__file__)
 
 logging.basicConfig(
     format=settings.LOGGING_FORMAT,
