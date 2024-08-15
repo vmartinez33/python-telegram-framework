@@ -1,9 +1,35 @@
+import os
+import importlib
+
 from telegram_framework.core.exceptions import ImproperlyConfigured
+from telegram_framework.utils.functional import LazyObject
 
 ENVIRONMENT_VARIABLE = "TELEGRAM_SETTINGS_MODULE"
 
 class Settings:
-    def __init__(self) -> None:
-        pass
+    TELEGRAM_BOT_TOKEN = "6123421745:AAFRDsCkCOMRneXpc7rMwnQkqdwXieXIYIY"
+    def __init__(self, settings_module) -> None:
+        #TODO: añadir settings globales como archivo que contiene una base de los settings, y cargarlos al inicio
+        
+        self.SETTINGS_MODULE = settings_module
+        
+        try:
+            module = importlib.import_module(settings_module)
+        except ImportError:
+            raise ImproperlyConfigured(f"Module '{settings_module}' not found.")
+        
+        for setting in dir(module):
+            if setting.isupper():
+                setattr(self, setting, getattr(module, setting))
 
-settings = Settings()
+
+class LazySettings(LazyObject):
+    def _setup(self):
+        settings_module = os.environ.get(ENVIRONMENT_VARIABLE)
+        if not settings_module:
+            raise ImproperlyConfigured("Settings are not configured. You must define the environment variable.")
+        
+        self._wrapped = Settings(settings_module)
+        
+
+settings = LazySettings()
