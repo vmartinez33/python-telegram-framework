@@ -3,6 +3,7 @@ import importlib
 
 from telegram_framework.core.exceptions import ImproperlyConfigured
 from telegram_framework.utils.functional import LazyObject
+from telegram_framework.conf import default_settings
 
 ENVIRONMENT_VARIABLE = "TELEGRAM_SETTINGS_MODULE"
 
@@ -18,6 +19,12 @@ class Settings:
         except ImportError:
             raise ImproperlyConfigured(f"Module '{settings_module}' not found.")
         
+        # Default settings are loaded first
+        for setting in dir(default_settings):
+            if setting.isupper():
+                setattr(self, setting, getattr(default_settings, setting))
+        
+        # Settings from the project settings module are then loaded, overriding the default ones
         for setting in dir(module):
             if setting.isupper():
                 setattr(self, setting, getattr(module, setting))
