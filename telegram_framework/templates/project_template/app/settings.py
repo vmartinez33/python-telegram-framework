@@ -8,4 +8,4 @@ For the full list of settings and their values, see:
 DEBUG = True
 
 # Telegram Bot configuration
-TELEGRAM_BOT_TOKEN = '6123421745:AAFRDsCkCOMRneXpc7rMwnQkqdwXieXIYIY'
+TELEGRAM_BOT_TOKEN = 'MY BOT TOKEN'
