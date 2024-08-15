@@ -4,11 +4,8 @@ import logging
 from telegram.ext import Application
 
 from telegram_framework.conf import settings
-from telegram_framework.conf.utils import initialize_settings
 
 from app.handlers import handlers
-
-initialize_settings(__file__)
 
 logging.basicConfig(
     format=settings.LOGGING_FORMAT,
