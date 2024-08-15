@@ -13,7 +13,7 @@ initialize_settings(__file__)
 #TODO: permitir configurar cosas de los logs en settings
 logging.basicConfig(
     format=settings.LOGGING_FORMAT,
-    level=settings.LOGGING_LEVEL
+    level=logging.DEBUG if settings.DEBUG else settings.LOGGING_LEVEL
 )
 logger = logging.getLogger(__name__)
 
