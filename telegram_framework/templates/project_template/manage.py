@@ -7,6 +7,8 @@ from telegram_framework.conf.utils import initialize_settings
 
 def main():
     """Run administrative tasks."""
+    
+    # 'project_module' parameter can be modified if you are using multiple settings files (development, production...)
     initialize_settings(__file__)
     
     try:
