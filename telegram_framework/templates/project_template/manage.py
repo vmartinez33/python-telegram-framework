@@ -2,12 +2,12 @@
 import os
 import sys
 
-from telegram_framework.conf.utils import set_environment
+from telegram_framework.conf.utils import initialize_settings
 
 
 def main():
     """Run administrative tasks."""
-    set_environment(__file__)
+    initialize_settings(__file__)
     
     try:
         from telegram_framework.management import execute_from_command_line

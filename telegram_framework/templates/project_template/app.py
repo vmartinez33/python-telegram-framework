@@ -3,7 +3,7 @@ import logging
 
 from telegram.ext import Application
 
-from telegram_framework.conf.utils import set_environment
+from telegram_framework.conf.utils import initialize_settings
 
 from app.handlers import handlers
 
@@ -16,7 +16,7 @@ logger = logging.getLogger(__name__)
 
 def main() -> None:
     """Start the bot."""
-    set_environment(__file__)
+    initialize_settings(__file__)
     
     # Create the Application and pass it your bot's token.
     application = Application.builder().token(os.getenv("TELEGRAM_BOT_TOKEN")).build()
