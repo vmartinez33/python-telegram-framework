@@ -10,7 +10,6 @@ ENVIRONMENT_VARIABLE = "TELEGRAM_SETTINGS_MODULE"
 class Settings:
     TELEGRAM_BOT_TOKEN = "6123421745:AAFRDsCkCOMRneXpc7rMwnQkqdwXieXIYIY"
     def __init__(self, settings_module) -> None:
-        #TODO: añadir settings globales como archivo que contiene una base de los settings, y cargarlos al inicio
         
         self.SETTINGS_MODULE = settings_module
         
