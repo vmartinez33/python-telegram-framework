@@ -2,7 +2,7 @@ import os
 import sys
 import subprocess
 
-from telegram_framework.utils import is_valid_python_version
+from telegram_framework.utils.version import is_valid_python_version
 from telegram_framework.management.base import CommandError
 from telegram_framework.management.templates import TemplateCommand
 
