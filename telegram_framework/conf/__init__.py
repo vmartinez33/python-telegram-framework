@@ -8,7 +8,6 @@ from telegram_framework.conf import default_settings
 ENVIRONMENT_VARIABLE = "TELEGRAM_SETTINGS_MODULE"
 
 class Settings:
-    TELEGRAM_BOT_TOKEN = "6123421745:AAFRDsCkCOMRneXpc7rMwnQkqdwXieXIYIY"
     def __init__(self, settings_module) -> None:
         
         self.SETTINGS_MODULE = settings_module
