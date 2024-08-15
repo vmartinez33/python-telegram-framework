@@ -2,7 +2,6 @@ from telegram.ext import filters, CommandHandler, MessageHandler
 
 from .callbacks import _start, _help, _echo
 
-#TODO: funcionalidad para poder importar aqui los handlers de otros modulos
 handlers = [
     CommandHandler('start', _start),
     CommandHandler('help', _help),
