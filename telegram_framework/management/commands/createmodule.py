@@ -1,7 +1,7 @@
 import os
 import sys
-import subprocess
 
+from telegram_framework.conf import settings
 from telegram_framework.management.base import CommandError
 from telegram_framework.management.templates import TemplateCommand
 
@@ -59,8 +59,9 @@ class Command(TemplateCommand):
 
     def handle(self, **options):
         name = options.get('name')
-        #TODO (EXTRA): definir en settings.py la ruta relativa por defecto donde crear los modulos dentro del proyecto (por ahora será dentro de /app)
-        destination = os.path.join(os.getcwd(), 'app', name)
+
+        base_directory = os.path.join(os.getcwd(), *settings.MODULES_DIR.split('.'))
+        destination = os.path.join(base_directory, name)
         self.copy_template(destination)
         
         print(f"Module '{name}' created successfully at {destination}\n")

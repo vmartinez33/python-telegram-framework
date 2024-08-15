@@ -1,5 +1,7 @@
 from importlib import import_module
 
+from telegram_framework.conf import settings
+
 def include(arg, abspath=False):
     """Includes handlers defined in another module.
     
@@ -12,8 +14,7 @@ def include(arg, abspath=False):
     """
     try:
         if not abspath:
-            #TODO (EXTRA): definir en settings.py la ruta relativa por defecto donde buscar los modulos (por ahora será dentro de /app)
-            arg = 'app.'+arg
+            arg = f"{settings.MODULES_DIR}.{arg}" #TODO: arreglaro, por algun motivo no lee la variable de entorno de los settings
         handler_module = import_module(arg)
         handlers = getattr(handler_module, 'handlers')
     except ModuleNotFoundError:
