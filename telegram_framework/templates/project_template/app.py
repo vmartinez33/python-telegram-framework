@@ -10,7 +10,6 @@ from app.handlers import handlers
 
 initialize_settings(__file__)
 
-#TODO: permitir configurar cosas de los logs en settings
 logging.basicConfig(
     format=settings.LOGGING_FORMAT,
     level=logging.DEBUG if settings.DEBUG else settings.LOGGING_LEVEL
