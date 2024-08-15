@@ -6,6 +6,8 @@ class Command(BaseCommand):
     def __init__(self, argv=None):
         super().__init__(argv)
         
+    def add_arguments(self, parser):
+        return super().add_arguments(parser)
+    
     def handle(self, **options):
         print("Environment variables successfully updated")
-        
