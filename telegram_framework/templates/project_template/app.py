@@ -1,14 +1,12 @@
 import os
 import logging
+import importlib
 
 from telegram.ext import Application
 
 from telegram_framework.conf.utils import initialize_settings
 from telegram_framework.conf import settings
 
-from app.handlers import handlers
-
-#TODO: Por algun motivo es necesario para ejecutar el app.py, ver porqué ocurre y si se puede evitar (se debe poder, a Django no le pasa)
 initialize_settings(__file__)
 
 logging.basicConfig(
@@ -23,7 +21,9 @@ def main() -> None:
     # Create the Application and pass it your bot's token.
     application = Application.builder().token(settings.TELEGRAM_BOT_TOKEN).build()
 
-    # Set the handlers defined in the handlers.py file
+    # Set the handlers for the specified module in the settings.py file ('app.handlers' by default).
+    handlers_module = importlib.import_module(settings.HANDLERS_MODULE)
+    handlers = getattr(handlers_module, 'handlers')
     application.add_handlers(handlers=handlers)
 
     # Run the bot until the user presses Ctrl-C

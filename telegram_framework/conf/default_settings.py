@@ -4,6 +4,7 @@ import logging
 DEBUG = False
 
 MODULES_DIR = 'app.modules'
+HANDLERS_MODULE = 'app.handlers'
 
 # Telegram Bot configuration
 TELEGRAM_BOT_TOKEN = ''
