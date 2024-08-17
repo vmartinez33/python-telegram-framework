@@ -27,20 +27,21 @@ def main() -> None:
     application.add_handlers(handlers=handlers)
 
     # Run the bot until the user presses Ctrl-C
-    application.run_polling()
-    
-    #TODO: Implementar flexibilidad para usar polling o webhooks
-    # if USE_WEBHOOK:
-    #     # Webhook setup
-    #     application.run_webhook(
-    #         listen="0.0.0.0",
-    #         port=PORT,
-    #         url_path=WEBHOOK_URL.split('/')[-1],
-    #         webhook_url=WEBHOOK_URL
-    #     )
-    # else:
-    #     # Polling setup
-    #     application.run_polling()
+    if settings.USE_WEBHOOK:
+        # Webhook setup
+        application.run_webhook(
+            listen=settings.WEBHOOK_LISTEN,
+            port=settings.WEBHOOK_PORT,
+            url_path=settings.WEBHOOK_URL.split('/')[-1],
+            webhook_url=settings.WEBHOOK_URL,
+            ip_address=settings.WEBHOOK_IP_ADDRESS,
+            secret_token=settings.WEBHOOK_SECRET_TOKEN,
+            cert=settings.WEBHOOK_CERT,
+            key=settings.WEBHOOK_SSL_KEY,
+        )
+    else:
+        # Polling setup
+        application.run_polling()
 
 
 if __name__ == "__main__":
