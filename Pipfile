@@ -6,6 +6,7 @@ name = "pypi"
 [packages]
 packaging = "*"
 python-telegram-bot = {extras = ["all"], version = "*"}
+pyngrok = "*"
 
 [dev-packages]
 

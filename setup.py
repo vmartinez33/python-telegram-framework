@@ -7,7 +7,8 @@ setup(
     install_requires=[
         "pipenv",
         "packaging"
-        "python-telegram-bot[all]"
+        "python-telegram-bot[all]",
+        "pyngrok",
     ],
     entry_points={
         'console_scripts': [
