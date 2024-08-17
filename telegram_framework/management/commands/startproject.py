@@ -45,10 +45,10 @@ class Command(TemplateCommand):
         destination = os.path.join(os.getcwd(), name)
         self.copy_template(destination)
         
-        if python_version:
-            #TODO: preguntar si quieren un nuevo entorno virtual con pipenv, y solo si dicen que sí, añadir el Pipfile
-            self.modify_pipfile(destination, python_version)
+        # if python_version:
+        #     #TODO: preguntar si quieren un nuevo entorno virtual con pipenv, y solo si dicen que sí, añadir el Pipfile
+        #     self.modify_pipfile(destination, python_version)
         
         print(f"Project '{name}' created successfully at {destination}\n")
         
-        self.ask_project_installation(destination)
+        # self.ask_project_installation(destination)
