@@ -7,7 +7,7 @@ setup(
     install_requires=[
         "pipenv",
         "packaging"
-        "python-telegram-bot"
+        "python-telegram-bot[all]"
     ],
     entry_points={
         'console_scripts': [
