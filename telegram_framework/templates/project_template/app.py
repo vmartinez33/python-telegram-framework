@@ -41,7 +41,7 @@ def main() -> None:
         application.run_webhook(
             listen=settings.WEBHOOK_LISTEN,
             port=settings.WEBHOOK_PORT,
-            url_path=settings.WEBHOOK_URL.split('/')[-1] if settings.WEBHOOK_URL else "",
+            url_path=settings.WEBHOOK_URL_PATH,
             webhook_url=ngrok_url if settings.USE_NGROK else settings.WEBHOOK_URL,
             ip_address=settings.WEBHOOK_IP_ADDRESS,
             secret_token=settings.WEBHOOK_SECRET_TOKEN,
