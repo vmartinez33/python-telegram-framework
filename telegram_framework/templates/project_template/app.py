@@ -2,7 +2,7 @@ import logging
 
 from telegram_framework.conf.utils import initialize_settings
 from telegram_framework.conf import settings
-from telegram_framework.core.app import BotRunner
+from telegram_framework.core.app import BotApp
 
 initialize_settings(__file__)
 
@@ -14,7 +14,7 @@ logger = logging.getLogger(__name__)
 
 def main() -> None:
     """Start the bot."""
-    app = BotRunner()
+    app = BotApp()
     app.run()
 
 
