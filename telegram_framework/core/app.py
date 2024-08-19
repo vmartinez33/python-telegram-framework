@@ -1,5 +1,6 @@
 import os
 import importlib
+from abc import ABC, abstractmethod
 
 from telegram.ext import Application
 from pyngrok import ngrok, conf
@@ -7,7 +8,7 @@ from pyngrok import ngrok, conf
 from telegram_framework.conf import settings
 
 
-class BotRunner:
+class BaseBotApp(ABC):
     def __init__(self, bot=None, updater=None, context_type=None):
         application = Application.builder()
         
@@ -19,12 +20,13 @@ class BotRunner:
             application = application.context_types(context_type)
         
         self.application = application.token(settings.TELEGRAM_BOT_TOKEN).build()
+        
+        # Set the handlers for the specified module in the settings.py file ('app.handlers' by default).
+        self.application.add_handlers(handlers=self._get_project_handlers())
+        
         self.run_params = {}
         
-    def set_run_params(self, **kwargs):
-        self.run_params = kwargs
-        
-    def _get_handlers(self):
+    def _get_project_handlers(self):
         try:
             handlers_module = importlib.import_module(settings.HANDLERS_MODULE)
         except ImportError:
@@ -50,12 +52,24 @@ class BotRunner:
             return
         
         return ngrok_url
- 
+    
+    @abstractmethod
     def run(self):
-        # Set the handlers for the specified module in the settings.py file ('app.handlers' by default).
-        handlers = self._get_handlers()
-        self.application.add_handlers(handlers=handlers)
-        
+        pass
+    
+    @abstractmethod
+    def stop(self):
+        pass
+
+
+class BotApp(BaseBotApp):
+    def __init__(self, bot=None, updater=None, context_type=None):
+        super().__init__(bot, updater, context_type)
+
+    def set_run_params(self, **kwargs):
+        self.run_params = kwargs
+
+    def run(self):        
         if settings.USE_WEBHOOK:
             # ngrok configuration
             if settings.USE_NGROK:
@@ -76,3 +90,6 @@ class BotRunner:
         else:
             # Polling setup
             self.application.run_polling(**self.run_params)
+
+    def stop(self):
+        self.application.stop_running()
