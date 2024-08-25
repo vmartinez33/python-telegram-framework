@@ -21,11 +21,10 @@ class BaseCommand(ABC):
     
     def __init__(self, argv=None):
         self.argv = argv or sys.argv
-        
-        script_name = os.path.basename(sys.argv[0])
+        script_name = os.path.basename(self.argv[0])
         if script_name == "__main__.py":
             script_name = "python -m telegram_framework"
-        command_name = sys.argv[1]
+        command_name = self.argv[1]
         prog = f'{script_name} {command_name}'
         
         self.parser = argparse.ArgumentParser(
