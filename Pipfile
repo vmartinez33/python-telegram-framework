@@ -8,6 +8,7 @@ packaging = "*"
 python-telegram-bot = {extras = ["all"], version = "*"}
 pyngrok = "*"
 pytest = "*"
+pytest-cov = "*"
 
 [dev-packages]
 
