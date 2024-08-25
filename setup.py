@@ -1,12 +1,20 @@
+import subprocess
 from setuptools import setup, find_packages
+
+framework_version = subprocess.run(['git', 'describe', '--tags', '--abbrev=0'], stdout=subprocess.PIPE).stdout.decode('utf-8').strip().replace("v", "")
+assert "." in framework_version
+
+with open("telegram_framework/VERSION", "w", encoding="utf-8") as fh:
+    fh.write(f'{framework_version}\n')
 
 setup(
     name="python-telegram-framework",
-    version="0.1.0",
+    version=framework_version,
     packages=find_packages(),
+    package_data={'telegram_framework': ['VERSION']},
+    include_package_data=True,
     install_requires=[
-        "pipenv",
-        "packaging"
+        "packaging",
         "python-telegram-bot[all]",
         "pyngrok",
     ],
