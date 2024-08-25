@@ -20,3 +20,7 @@ def test_initialized_project(temporary_project):
         os.path.isfile(callbacks_file)
     )
     
+    # Check if settings module is invocable, and BASE_DIR is correct
+    base_dir = getattr(settings, 'BASE_DIR', None)
+    assert base_dir is not None
+    assert os.path.samefile(base_dir, project_dir)
