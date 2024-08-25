@@ -29,7 +29,9 @@ def temporary_project(tmp_path_factory):
         assert os.path.exists(project_dir)
         assert os.path.isdir(project_dir)
         
-        yield project_dir
+        yield {
+            'project_dir': project_dir
+        }
         
     finally:
         # Return to the original working directory
