@@ -4,4 +4,4 @@
 
 Small framework to create bots around the python-telegram-bot library.
 
-Project made to learn how to manage and create Python packages, with the motivation of living the experience of creating a framework.
+A project designed to learn how to manage and create Python packages, driven by the desire to experience building a framework from the ground up.
