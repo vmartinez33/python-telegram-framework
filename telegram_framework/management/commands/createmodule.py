@@ -46,11 +46,11 @@ class Command(TemplateCommand):
                         count += 1
                 
                 print(f"Handlers of module '{module_name}' included in app handlers successfully.")
-                reverse = input("\nDo you want to reverse the action? (y/n):").strip().lower()
-                if reverse == "y":
-                    with open(app_handlers_path, 'w') as f:
-                        f.writelines(content)
-                    print("Action successfully reversed.")
+                # reverse = input("\nDo you want to reverse the action? (y/n):").strip().lower()
+                # if reverse == "y":
+                #     with open(app_handlers_path, 'w') as f:
+                #         f.writelines(content)
+                #     print("Action successfully reversed.")
             except Exception as e:
                 print(f"Error while including handlers: {e}")
                 with open(app_handlers_path, 'w') as f:
