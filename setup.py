@@ -1,14 +1,26 @@
+import requests
 import subprocess
 from setuptools import setup, find_packages
 
-framework_version = subprocess.run(['git', 'describe', '--tags', '--abbrev=0'], stdout=subprocess.PIPE).stdout.decode('utf-8').strip().replace("v", "")
+def get_latest_github_release(owner, repo):
+    url = f"https://api.github.com/repos/{owner}/{repo}/releases/latest"
+    response = requests.get(url)
+    if response.status_code == 200:
+        release_data = response.json()
+        return release_data['tag_name']
+    else:
+        raise Exception(f"Error fetching release data: {response.status_code}")
+
+owner = "vmartinez33"
+repo = "python-telegram-framework"
+framework_version = get_latest_github_release(owner, repo).replace("v", "")
 assert "." in framework_version
 
 with open("telegram_framework/VERSION", "w", encoding="utf-8") as fh:
     fh.write(f'{framework_version}\n')
 
 setup(
-    name="python-telegram-framework",
+    name=repo,
     version=framework_version,
     packages=find_packages(),
     package_data={'telegram_framework': ['VERSION']},
@@ -20,7 +32,7 @@ setup(
     ],
     entry_points={
         'console_scripts': [
-            'python-telegram-framework=telegram_framework.management:execute_from_command_line',
+            f"{repo}=telegram_framework.management:execute_from_command_line",
         ],
     },
     author="Víctor Martínez Amador",
@@ -28,7 +40,7 @@ setup(
     description="Small framework to create bots with python-telegram-bot",
     long_description=open('README.md').read(),
     long_description_content_type='text/markdown',
-    url="https://github.com/vmartinez33/python-telegram-framework",
+    url=f"https://github.com/vmartinez33/{repo}",
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
