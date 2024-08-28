@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "6aaa145f373bba441a70d8189d8034efebe2185647cd08ded11f682ff8719748"
+            "sha256": "4acf6b0a3f08ae3a71cee373a054f51d232f32e2c80e159c71dd4f6ac9e9a461"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -284,11 +284,11 @@
                 "socks"
             ],
             "hashes": [
-                "sha256:71d5465162c13681bff01ad59b2cc68dd838ea1f10e51574bac27103f00c91a5",
-                "sha256:a0cb88a46f32dc874e04ee956e4c2764aba2aa228f650b06788ba6bda2962ab5"
+                "sha256:7bb2708e112d8fdd7829cd4243970f0c223274051cb35ee80c03301ee29a3df0",
+                "sha256:f7c2be1d2f3c3c3160d441802406b206c2b76f5947b11115e6df10c6c65e66c2"
             ],
             "markers": "python_version >= '3.8'",
-            "version": "==0.27.0"
+            "version": "==0.27.2"
         },
         "hyperframe": {
             "hashes": [
@@ -376,6 +376,10 @@
             ],
             "markers": "python_version >= '3.8'",
             "version": "==21.4"
+        },
+        "python-telegram-framework": {
+            "editable": true,
+            "file": "."
         },
         "pytz": {
             "hashes": [
