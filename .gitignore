@@ -8,5 +8,5 @@ __pycache__/
 dist/
 build/
 *.egg-info/
-/telegram_framework/VERSION
+/telegram_framework/_version.py
 .coverage
