@@ -7,8 +7,11 @@ name = "pypi"
 packaging = "*"
 python-telegram-bot = {extras = ["all"], version = "*"}
 pyngrok = "*"
+pytest = "*"
+pytest-cov = "*"
+python-telegram-framework = {file = ".", editable = true}
+setuptools-scm = "*"
 
 [dev-packages]
 
 [requires]
-python_version = "3.11"

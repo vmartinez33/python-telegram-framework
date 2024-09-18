@@ -5,6 +5,7 @@ from abc import ABC, abstractmethod
 import telegram_framework
 from .base import BaseCommand, CommandError
 
+
 class TemplateCommand(BaseCommand, ABC):
     @property
     @abstractmethod
