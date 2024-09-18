@@ -10,6 +10,7 @@ pyngrok = "*"
 pytest = "*"
 pytest-cov = "*"
 python-telegram-framework = {file = ".", editable = true}
+setuptools-scm = "*"
 
 [dev-packages]
 

@@ -1,11 +1,10 @@
 [build-system]
-requires = ["setuptools>=61.0", "wheel"]
+requires = ["setuptools>=61.0", "setuptools_scm>=8", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "python-telegram-framework"
-version = "0.1.0"  # Debes reemplazar esto con el código para leer la versión desde un archivo o fuente externa
-# dynamic = ["version"]
+dynamic = ["version"]
 description = "Small framework to create bots with python-telegram-bot"
 readme = "README.md"
 license = {file = "LICENSE"}
@@ -32,3 +31,6 @@ python-telegram-framework = "telegram_framework.management:execute_from_command_
 [project.urls]
 Repository = "https://github.com/vmartinez33/python-telegram-framework"
 Documentation = "https://vmartinez33.github.io/python-telegram-framework/"
+
+[tool.setuptools_scm]
+version_file = "telegram_framework/_version.py"
