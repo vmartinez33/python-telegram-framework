@@ -14,7 +14,7 @@ def include(arg, abspath=False):
     """
     try:
         if not abspath:
-            arg = f"{settings.MODULES_DIR}.{arg}" #TODO: arreglaro, por algun motivo no lee la variable de entorno de los settings
+            arg = f"{settings.MODULES_DIR}.{arg}"
         handler_module = import_module(arg)
         handlers = getattr(handler_module, 'handlers')
     except ModuleNotFoundError:
