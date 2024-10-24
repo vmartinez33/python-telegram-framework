@@ -1,17 +1,17 @@
-from telegram_framework.conf.utils import initialize_settings
+from telegram import Update
+from telegram.ext import ContextTypes
+
 from telegram_framework.core.app import BotApp
 
-initialize_settings(__file__)
 
-
-app = BotApp()
+app = BotApp(__name__)
 
 # @command('start')
 # async def cmd_start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 #     """Send a message when the command /start is issued."""
 #     user = update.effective_user
 #     await update.message.reply_html(f"Hi {user.name}!")
-    
+
 
 # @command('help')
 # async def cmd_help(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
