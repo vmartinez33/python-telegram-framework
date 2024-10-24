@@ -6,8 +6,8 @@ TELEGRAM_BOT_TOKEN = ''
 # Project configuration
 DEBUG = True
 
-MODULES_DIR = 'app.modules'
-HANDLERS_MODULE = 'app.handlers'
+MODULES_DIR = 'modules'
+# HANDLERS_MODULE = 'handlers'
 
 # Webhook configuration
 USE_WEBHOOK = False

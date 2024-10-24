@@ -1,5 +1,2 @@
-from telegram.ext import filters, CommandHandler, MessageHandler
 
-handlers = [
-    
-]
+#TODO: crear equivalente a los Blueprints de Flask

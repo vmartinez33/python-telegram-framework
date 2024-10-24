@@ -1,22 +1,32 @@
-import logging
-
 from telegram_framework.conf.utils import initialize_settings
-from telegram_framework.conf import settings
 from telegram_framework.core.app import BotApp
 
 initialize_settings(__file__)
 
-logging.basicConfig(
-    format=settings.LOGGING_FORMAT,
-    level=logging.DEBUG if settings.DEBUG else settings.LOGGING_LEVEL
-)
-logger = logging.getLogger(__name__)
 
-def main() -> None:
-    """Start the bot."""
-    app = BotApp()
-    app.run()
+app = BotApp()
 
+# @command('start')
+# async def cmd_start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+#     """Send a message when the command /start is issued."""
+#     user = update.effective_user
+#     await update.message.reply_html(f"Hi {user.name}!")
+    
+
+# @command('help')
+# async def cmd_help(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+#     """Send a message when the command /help is issued."""
+#     await update.message.reply_html(
+#         f"These are the available commands:\n \
+#         &#8226; \"<b>/start</b>\"\n \
+#         &#8226; \"<b>/help</b>\""
+#     )
+
+
+# @message()
+# async def msg_echo(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+#     """Echo the user message."""
+#     await update.message.reply_text(update.message.text)
 
 if __name__ == "__main__":
-    main()
+    app.run()

@@ -21,24 +21,24 @@ class BaseBotApp(ABC):
         
         self.application = application.token(settings.TELEGRAM_BOT_TOKEN).build()
         
-        # Set the handlers for the specified module in the settings.py file ('app.handlers' by default).
-        self.application.add_handlers(handlers=self._get_project_handlers())
+        # Set the handlers for the specified module in the settings.py file ('handlers' by default).
+        # self.application.add_handlers(handlers=self._get_project_handlers())
         
         self.run_params = {}
         
-    def _get_project_handlers(self):
-        try:
-            handlers_module = importlib.import_module(settings.HANDLERS_MODULE)
-        except ImportError:
-            print("The handlers module could not be imported. Is the module correctly indicated in the settings.py file?")
-            return
+    # def _get_project_handlers(self):
+    #     try:
+    #         handlers_module = importlib.import_module(settings.HANDLERS_MODULE)
+    #     except ImportError:
+    #         print("The handlers module could not be imported. Is the module correctly indicated in the settings.py file?")
+    #         return
         
-        handlers = getattr(handlers_module, 'handlers', None)
-        if handlers is None:
-            print("The handlers module does not contain any handlers. Check the module and its structure.")
-            return
+    #     handlers = getattr(handlers_module, 'handlers', None)
+    #     if handlers is None:
+    #         print("The handlers module does not contain any handlers. Check the module and its structure.")
+    #         return
         
-        return handlers
+    #     return handlers
     
     def _configure_ngrok_and_get_url(self):
         try:
