@@ -3,12 +3,9 @@ import sys
 import subprocess
 
 
-def test_createmodule_command_with_handlers_include(temporary_project):
+def test_createmodule_command(temporary_project):
     project_dir = temporary_project.get('project_dir', None)
     assert project_dir is not None
-    
-    # Prepare the inputs as a string with line breaks
-    # inputs = "y"
         
     # Run the "createmodule" command with a module name
     module_name = 'module_test'
@@ -17,7 +14,6 @@ def test_createmodule_command_with_handlers_include(temporary_project):
         [sys.executable, 'manage.py', 'createmodule', module_name],
         capture_output=True,
         text=True,
-        # input=inputs
     )
     
     # Check if the command runs successfully
@@ -37,9 +33,4 @@ def test_createmodule_command_with_handlers_include(temporary_project):
     assert os.path.exists(models_file)
     assert os.path.isfile(models_file)
     
-    # Check if the module handlers are included in the main handlers file
-    # main_handlers_file = os.path.join(project_dir, 'app', 'handlers.py')
-    # with open(main_handlers_file, 'r') as f:
-    #     content = f.read()
-    #     assert f"include('{module_name}.handlers')" in content    
     
