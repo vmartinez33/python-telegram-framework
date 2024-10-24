@@ -86,7 +86,7 @@ class BotApp(BaseBotApp):
         self.run_params = kwargs
 
     def run(self):        
-        if settings.USE_WEBHOOK:
+        if settings.USE_WEBHOOK or settings.USE_NGROK:
             # ngrok configuration
             if settings.USE_NGROK:
                 ngrok_url = self._configure_ngrok_and_get_url()
