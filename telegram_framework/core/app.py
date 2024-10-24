@@ -1,15 +1,31 @@
 import os
+import logging
 import importlib
+from inspect import currentframe
 from abc import ABC, abstractmethod
 
 from telegram.ext import Application
 from pyngrok import ngrok, conf
 
+from telegram_framework.conf.utils import initialize_settings
 from telegram_framework.conf import settings
 
 
 class BaseBotApp(ABC):
-    def __init__(self, bot=None, updater=None, context_type=None):
+    def __init__(self, name="__main__", settings_module="settings", bot=None, updater=None, context_type=None):
+        # Settings initialization
+        frame = currentframe().f_back
+        file = frame.f_code.co_filename
+        initialize_settings(file, settings_module)
+        
+        # Logging configuration
+        logging.basicConfig(
+            format=settings.LOGGING_FORMAT,
+            level=logging.DEBUG if settings.DEBUG else settings.LOGGING_LEVEL
+        )
+        self.logger = logging.getLogger(name)
+        
+        # Application and Bot configuration
         application = Application.builder()
         
         if bot is not None:
@@ -63,8 +79,8 @@ class BaseBotApp(ABC):
 
 
 class BotApp(BaseBotApp):
-    def __init__(self, bot=None, updater=None, context_type=None):
-        super().__init__(bot, updater, context_type)
+    def __init__(self, name, settings_module="settings", bot=None, updater=None, context_type=None):
+        super().__init__(name, settings_module, bot, updater, context_type)
 
     def set_run_params(self, **kwargs):
         self.run_params = kwargs
