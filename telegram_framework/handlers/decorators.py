@@ -12,7 +12,7 @@ def command(command_name: str, filters: Optional[BaseFilter] = None, block: bool
 
 
 def message(filters: Optional[BaseFilter] = filters.TEXT & ~filters.COMMAND, block: bool = True) -> CommandHandler:
-    """Decorator to return a CommandHandler for a callback function."""
+    """Decorator to return a MessageHandler for a callback function."""
     def decorator(func):
         return MessageHandler(filters, func, block)
     return decorator
