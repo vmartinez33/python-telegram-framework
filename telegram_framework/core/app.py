@@ -3,8 +3,10 @@ import logging
 import importlib
 from inspect import currentframe
 from abc import ABC, abstractmethod
+from typing import Optional
 
-from telegram.ext import Application
+from telegram.ext import Application, filters, CommandHandler, MessageHandler
+from telegram.ext.filters import BaseFilter
 from pyngrok import ngrok, conf
 
 from telegram_framework.conf.utils import initialize_settings
@@ -12,6 +14,8 @@ from telegram_framework.conf import settings
 
 
 class BaseBotApp(ABC):
+    handlers_list = []
+    
     def __init__(self, name="__main__", settings_module="settings", bot=None, updater=None, context_type=None):
         # Settings initialization
         frame = currentframe().f_back
@@ -69,6 +73,20 @@ class BaseBotApp(ABC):
         
         return ngrok_url
     
+    def command(self, command_name: str, filters: Optional[BaseFilter] = None, block: bool = True, has_args: Optional[bool | int] = None):
+        """Decorator to set a CommandHandler for a callback function."""
+        def decorator(func):
+            self.handlers_list.append(CommandHandler(command_name, func, filters, block, has_args))
+            return func
+        return decorator
+    
+    def message(self, filters: Optional[BaseFilter] = filters.TEXT & ~filters.COMMAND, block: bool = True) -> CommandHandler:
+        """Decorator to set a MessageHandler for a callback function."""
+        def decorator(func):
+            self.handlers_list.append(MessageHandler(filters, func, block))
+            return func
+        return decorator
+    
     @abstractmethod
     def run(self):
         pass
@@ -85,7 +103,9 @@ class BotApp(BaseBotApp):
     def set_run_params(self, **kwargs):
         self.run_params = kwargs
 
-    def run(self):        
+    def run(self):
+        self.application.add_handlers(self.handlers_list)
+        
         if settings.USE_WEBHOOK or settings.USE_NGROK:
             # ngrok configuration
             if settings.USE_NGROK:
