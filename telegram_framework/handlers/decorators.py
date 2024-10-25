@@ -4,16 +4,19 @@ from telegram.ext import filters, CommandHandler, MessageHandler
 from telegram.ext.filters import BaseFilter
 
 
-# def command(command_name: str, filters: Optional[BaseFilter] = None, block: bool = True, has_args: Optional[bool | int] = None) -> CommandHandler:
-#     """Decorator to return a CommandHandler for a callback function."""
-#     def decorator(func):
-#         return CommandHandler(command_name, func, filters, block, has_args)
-#     return decorator
-
-
-# def message(filters: Optional[BaseFilter] = filters.TEXT & ~filters.COMMAND, block: bool = True) -> CommandHandler:
-#     """Decorator to return a MessageHandler for a callback function."""
-#     def decorator(func):
-#         return MessageHandler(filters, func, block)
-#     return decorator
-
+class HandlerDecorators:
+    handlers_list = []
+    
+    def command(self, command_name: str, filters: Optional[BaseFilter] = None, block: bool = True, has_args: Optional[bool | int] = None):
+        """Decorator to set a CommandHandler for a callback function."""
+        def decorator(func):
+            self.handlers_list.append(CommandHandler(command_name, func, filters, block, has_args))
+            return func
+        return decorator
+    
+    def message(self, filters: Optional[BaseFilter] = filters.TEXT & ~filters.COMMAND, block: bool = True) -> CommandHandler:
+        """Decorator to set a MessageHandler for a callback function."""
+        def decorator(func):
+            self.handlers_list.append(MessageHandler(filters, func, block))
+            return func
+        return decorator
