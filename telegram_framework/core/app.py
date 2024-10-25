@@ -1,20 +1,18 @@
 import os
 import logging
-import importlib
 from inspect import currentframe
 from abc import ABC, abstractmethod
-from typing import Optional
 
-from telegram.ext import Application, filters, CommandHandler, MessageHandler
-from telegram.ext.filters import BaseFilter
+from telegram.ext import Application
 from pyngrok import ngrok, conf
 
 from telegram_framework.conf.utils import initialize_settings
 from telegram_framework.conf import settings
+from telegram_framework.core.module import Module
+from telegram_framework.handlers.decorators import HandlerDecorators
 
 
-class BaseBotApp(ABC):
-    handlers_list = []
+class BaseBotApp(ABC, HandlerDecorators):
     
     def __init__(self, name="__main__", settings_module="settings", bot=None, updater=None, context_type=None):
         # Settings initialization
@@ -73,19 +71,8 @@ class BaseBotApp(ABC):
         
         return ngrok_url
     
-    def command(self, command_name: str, filters: Optional[BaseFilter] = None, block: bool = True, has_args: Optional[bool | int] = None):
-        """Decorator to set a CommandHandler for a callback function."""
-        def decorator(func):
-            self.handlers_list.append(CommandHandler(command_name, func, filters, block, has_args))
-            return func
-        return decorator
-    
-    def message(self, filters: Optional[BaseFilter] = filters.TEXT & ~filters.COMMAND, block: bool = True) -> CommandHandler:
-        """Decorator to set a MessageHandler for a callback function."""
-        def decorator(func):
-            self.handlers_list.append(MessageHandler(filters, func, block))
-            return func
-        return decorator
+    def register_module(self, module: Module):
+        self.handlers_list += module.handlers_list
     
     @abstractmethod
     def run(self):
