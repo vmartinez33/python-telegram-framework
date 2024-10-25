@@ -1,11 +1,10 @@
 from telegram import Update
 from telegram.ext import ContextTypes
 
-from telegram_framework.core.app import BotApp
+from telegram_framework.core import BotApp
 
 
 app = BotApp(__name__)
-
 
 @app.command('start')
 async def cmd_start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
