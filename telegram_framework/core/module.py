@@ -1,4 +1,4 @@
-from telegram_framework.handlers.decorators import HandlerDecorators
+from telegram_framework.core.decorators import HandlerDecorators
 
 
 class Module(HandlerDecorators):

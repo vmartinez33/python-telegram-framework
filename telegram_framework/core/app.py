@@ -9,7 +9,7 @@ from pyngrok import ngrok, conf
 from telegram_framework.conf.utils import initialize_settings
 from telegram_framework.conf import settings
 from telegram_framework.core.module import Module
-from telegram_framework.handlers.decorators import HandlerDecorators
+from telegram_framework.core.decorators import HandlerDecorators
 
 
 class BaseBotApp(ABC, HandlerDecorators):
