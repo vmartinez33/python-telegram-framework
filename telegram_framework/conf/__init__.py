@@ -1,7 +1,7 @@
 import os
 import importlib
 
-from telegram_framework.core.exceptions import ImproperlyConfigured
+from telegram_framework.exceptions import ImproperlyConfigured
 from telegram_framework.utils.functional import LazyObject
 from telegram_framework.conf import default_settings
 
