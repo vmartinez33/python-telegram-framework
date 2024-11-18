@@ -20,4 +20,4 @@ class Command(TemplateCommand):
         destination = os.path.join(base_directory, name)
         self.copy_template(destination)
         
-        print(f"Module '{name}' created successfully at {destination}\n")        
+        print(f"Module '{name}' created successfully at {destination}\n")
