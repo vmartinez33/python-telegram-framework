@@ -1,2 +1,4 @@
+from telegram import Update
+from telegram.ext import ContextTypes
 
-#TODO: crear equivalente a los Blueprints de Flask
+from telegram_framework.core import Module
