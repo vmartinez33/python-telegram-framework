@@ -5,7 +5,8 @@ from telegram.ext.filters import BaseFilter
 
 
 class HandlerDecorators:
-    handlers_list = []
+    def __init__(self) -> None:
+        self.handlers_list = []
     
     def command(self, command_name: str, filters: Optional[BaseFilter] = None, block: bool = True, has_args: Optional[bool | int] = None):
         """Decorator to set a CommandHandler for a callback function."""

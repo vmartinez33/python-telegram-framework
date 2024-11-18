@@ -15,6 +15,8 @@ from telegram_framework.handlers.decorators import HandlerDecorators
 class BaseBotApp(ABC, HandlerDecorators):
     
     def __init__(self, name="__main__", settings_module="settings", bot=None, updater=None, context_type=None):
+        super().__init__()
+        
         # Settings initialization
         frame = currentframe().f_back
         file = frame.f_code.co_filename
