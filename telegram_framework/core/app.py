@@ -1,15 +1,35 @@
 import os
-import importlib
+import logging
+from inspect import currentframe
 from abc import ABC, abstractmethod
 
 from telegram.ext import Application
 from pyngrok import ngrok, conf
 
+from telegram_framework.conf.utils import initialize_settings
 from telegram_framework.conf import settings
+from telegram_framework.core.module import Module
+from telegram_framework.core.decorators import HandlerDecorators
 
 
-class BaseBotApp(ABC):
-    def __init__(self, bot=None, updater=None, context_type=None):
+class BaseBotApp(ABC, HandlerDecorators):
+    
+    def __init__(self, name="__main__", settings_module="settings", bot=None, updater=None, context_type=None):
+        super().__init__()
+        
+        # Settings initialization
+        frame = currentframe().f_back
+        file = frame.f_code.co_filename
+        initialize_settings(file, settings_module)
+        
+        # Logging configuration
+        logging.basicConfig(
+            format=settings.LOGGING_FORMAT,
+            level=logging.DEBUG if settings.DEBUG else settings.LOGGING_LEVEL
+        )
+        self.logger = logging.getLogger(name)
+        
+        # Application and Bot configuration
         application = Application.builder()
         
         if bot is not None:
@@ -21,24 +41,24 @@ class BaseBotApp(ABC):
         
         self.application = application.token(settings.TELEGRAM_BOT_TOKEN).build()
         
-        # Set the handlers for the specified module in the settings.py file ('app.handlers' by default).
-        self.application.add_handlers(handlers=self._get_project_handlers())
+        # Set the handlers for the specified module in the settings.py file ('handlers' by default).
+        # self.application.add_handlers(handlers=self._get_project_handlers())
         
         self.run_params = {}
         
-    def _get_project_handlers(self):
-        try:
-            handlers_module = importlib.import_module(settings.HANDLERS_MODULE)
-        except ImportError:
-            print("The handlers module could not be imported. Is the module correctly indicated in the settings.py file?")
-            return
+    # def _get_project_handlers(self):
+    #     try:
+    #         handlers_module = importlib.import_module(settings.HANDLERS_MODULE)
+    #     except ImportError:
+    #         print("The handlers module could not be imported. Is the module correctly indicated in the settings.py file?")
+    #         return
         
-        handlers = getattr(handlers_module, 'handlers', None)
-        if handlers is None:
-            print("The handlers module does not contain any handlers. Check the module and its structure.")
-            return
+    #     handlers = getattr(handlers_module, 'handlers', None)
+    #     if handlers is None:
+    #         print("The handlers module does not contain any handlers. Check the module and its structure.")
+    #         return
         
-        return handlers
+    #     return handlers
     
     def _configure_ngrok_and_get_url(self):
         try:
@@ -53,6 +73,9 @@ class BaseBotApp(ABC):
         
         return ngrok_url
     
+    def register_module(self, module: Module):
+        self.handlers_list += module.handlers_list
+    
     @abstractmethod
     def run(self):
         pass
@@ -63,14 +86,16 @@ class BaseBotApp(ABC):
 
 
 class BotApp(BaseBotApp):
-    def __init__(self, bot=None, updater=None, context_type=None):
-        super().__init__(bot, updater, context_type)
+    def __init__(self, name, settings_module="settings", bot=None, updater=None, context_type=None):
+        super().__init__(name, settings_module, bot, updater, context_type)
 
     def set_run_params(self, **kwargs):
         self.run_params = kwargs
 
-    def run(self):        
-        if settings.USE_WEBHOOK:
+    def run(self):
+        self.application.add_handlers(self.handlers_list)
+        
+        if settings.USE_WEBHOOK or settings.USE_NGROK:
             # ngrok configuration
             if settings.USE_NGROK:
                 ngrok_url = self._configure_ngrok_and_get_url()
